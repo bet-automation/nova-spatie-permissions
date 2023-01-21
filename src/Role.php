@@ -8,7 +8,12 @@ use Spatie\Permission\Models\Role as SpatieRole;
 class Role extends Resource
 {
 	use RoleResourceTrait;
-	
+    use \Itsmejoshua\Novaspatiepermissions\PermissionsBasedAuthTrait;
+
+    public static $permissionsForAbilities = [
+        'all' => 'admin',
+    ];
+
 	/**
 	 * The model the resource corresponds to.
 	 *
