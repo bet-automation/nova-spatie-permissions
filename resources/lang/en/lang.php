@@ -2,6 +2,7 @@
 
 return [
     'sidebar_label' => 'Roles & Permissions',
+    'sidebar_label_users' => 'Users',
     'sidebar_label_roles' => 'Roles',
     'sidebar_label_permissions' => 'Permissions',
     'name'         => 'Name',

@@ -15,7 +15,6 @@ class Novaspatiepermissions extends Tool
 {
     public $roleResource = Role::class;
 	public $permissionResource = Permission::class;
-
 	public $registerCustomResources = false;
 
     /**
@@ -69,6 +68,7 @@ class Novaspatiepermissions extends Tool
 
         if (\Auth::user()->can('admin')) {
             $menu = [
+                MenuItem::link(__('nova-spatie-permissions::lang.sidebar_label_users'), 'resources/users'),
                 MenuItem::link(__('nova-spatie-permissions::lang.sidebar_label_roles'), 'resources/roles'),
                 MenuItem::link(__('nova-spatie-permissions::lang.sidebar_label_permissions'), 'resources/permissions'),
             ];
