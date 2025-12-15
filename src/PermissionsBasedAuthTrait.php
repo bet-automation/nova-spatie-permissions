@@ -177,22 +177,27 @@ trait PermissionsBasedAuthTrait
 		return static::authorizable() ? static::hasPermissionsTo($request, $ability) : true;
 	}
 
-	public static function hasPermissionsTo(Request $request, $ability)
-	{
-	
-		if($request->GetRequestUri()==config('nova.path')."/login"){
-			return true;
-		}
-		
-		
-		if (isset(static::$permissionsForAbilities[$ability])) {
-			return $request->user()->can(static::$permissionsForAbilities[$ability]);
-		}
+    public static function hasPermissionsTo(Request $request, $ability)
+    {
+        $novaPath = trim(config('nova.path', 'nova'), '/');
+        $loginPath = '/'.($novaPath ? $novaPath.'/' : '').'login';
 
-		if (isset(static::$permissionsForAbilities['all'])) {
-			return $request->user()->can(static::$permissionsForAbilities['all']);
-		}
+        if ($request->getPathInfo() === $loginPath) {
+            return true;
+        }
 
-		return false;
-	}
+        if (!$request->user()) {
+            return false;
+        }
+
+        if (isset(static::$permissionsForAbilities[$ability])) {
+            return $request->user()->can(static::$permissionsForAbilities[$ability]);
+        }
+
+        if (isset(static::$permissionsForAbilities['all'])) {
+            return $request->user()->can(static::$permissionsForAbilities['all']);
+        }
+
+        return false;
+    }
 }
